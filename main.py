@@ -108,11 +108,11 @@ elif (app_mode=="Crop Disease Recognition"):
  'Tomato___healthy']
         st.success("Model is predicting it's a {}".format(class_name[result_index]))
 elif(app_mode=="Chatbot"):
-    working_dir=os.path.dirname(os.path.abspath(__file__))
-config_data=json.load(open(f"{working_dir}/config.json"))
-GROQ_API_KEY=config_data["GROQ_API_KEY"]
-os.environ["GROQ_API_KEY"]=GROQ_API_KEY
-client=Groq()
+    working_dir=os.path.dirname(os.path.abspath("D:\Copy_of_system\dataset_3\config.json"))
+    config_data=json.load(open(f"{working_dir}/config.json"))
+    GROQ_API_KEY=config_data["GROQ_API_KEY"]
+    os.environ["GROQ_API_KEY"]=GROQ_API_KEY
+    client=Groq()
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 st.title("𖤐 SATAN CHATBOT")
