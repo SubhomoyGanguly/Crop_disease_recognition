@@ -14,11 +14,8 @@ def model_prediction(test_image):
     prediction = model.predict(input_arr)
     result_index = np.argmax(prediction)
     return result_index
-st.set_page_config(
-    page_title="Satan 3.1 Chat",
-    page_icon="𖤐",
-    layout="centered"
-)
+
+
 st.sidebar.title("Dashboard")
 app_mode = st.sidebar.selectbox("Select Page",["Home","About","Crop Disease Recognition","Chatbot"])
 
@@ -107,42 +104,3 @@ elif (app_mode=="Crop Disease Recognition"):
  'Tomato___Tomato_mosaic_virus',
  'Tomato___healthy']
         st.success("Model is predicting it's a {}".format(class_name[result_index]))
-elif(app_mode=="Chatbot"):
-    working_dir=os.path.dirname(os.path.abspath("D:\Copy_of_system\dataset_3\config.json"))
-    config_data=json.load(open(f"{working_dir}/config.json"))
-    GROQ_API_KEY=config_data["GROQ_API_KEY"]
-    os.environ["GROQ_API_KEY"]=GROQ_API_KEY
-    client=Groq()
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = []
-st.title("𖤐 SATAN CHATBOT")
-for message in st.session_state.chat_history:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-
-user_prompt= st.chat_input("Ask Satan Chatbot about Crop Disease Solutions")
-if user_prompt:
-    st.chat_message("user").markdown(user_prompt)
-    st.session_state.chat_history.append({"role": "user","content": user_prompt})
-    messages=[
-        {"role": "system","content": "You are a helpful assistant"},
-        *st.session_state.chat_history
-    ]
-
-
-
-
-    response=client.chat.completions.create(
-        model = "llama-3.1-8b-instant",
-        messages=messages
-    )
-
-    assistant_response= response.choices[0].message.content
-    st.session_state.chat_history.append({"role": "assistant","content": assistant_response})
-    with st.chat_message("assistant"):
-        st.markdown(assistant_response)
-
-
-
-
-    
